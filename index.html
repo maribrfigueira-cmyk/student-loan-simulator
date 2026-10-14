@@ -30,7 +30,6 @@
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
-        /* Custom scrollbar and transition smoothness */
         * {
             transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
         }
@@ -38,7 +37,6 @@
 </head>
 <body class="bg-lightBg text-lightText dark:bg-darkBg dark:text-darkText min-h-screen flex flex-col justify-between selection:bg-brandBlue selection:text-white">
 
-    <!-- Top Header Navigation -->
     <header class="w-full border-b border-neutral-200 dark:border-neutral-800 bg-lightCard dark:bg-darkCard px-6 py-4 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div>
@@ -53,10 +51,9 @@
         </div>
     </header>
 
-    <!-- Main Workspace Container -->
     <main class="max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 flex-grow">
         
-        <!-- Left Column: Inputs & Levers (5 Cols on Desktop) -->
+        <!-- Left Column: Inputs & Levers -->
         <div class="lg:col-span-5 flex flex-col gap-6">
             <div class="bg-lightCard dark:bg-darkCard border border-neutral-200 dark:border-neutral-800 rounded-xl p-5 sm:p-6 shadow-sm">
                 <div class="flex items-center justify-between mb-4">
@@ -108,33 +105,25 @@
                 </div>
             </div>
 
-            <!-- "What it takes to finish in" Section -->
+            <!-- Target Buttons Section -->
             <div class="bg-lightCard dark:bg-darkCard border border-neutral-200 dark:border-neutral-800 rounded-xl p-5 sm:p-6 shadow-sm">
                 <h3 class="text-sm font-semibold tracking-tight mb-2">What it takes to finish in</h3>
                 <p class="text-xs text-neutral-500 dark:text-neutral-400 mb-4">Click a target timeline to instantly set your monthly payment.</p>
-                
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="targetButtonsContainer">
-                    <!-- Injected via JavaScript -->
-                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="targetButtonsContainer"></div>
             </div>
         </div>
 
-        <!-- Right Column: Outputs & Visualizations (7 Cols on Desktop) -->
+        <!-- Right Column: Outputs & Visualizations -->
         <div class="lg:col-span-7 flex flex-col gap-6">
             
             <!-- Status & Summary Card -->
             <div class="bg-lightCard dark:bg-darkCard border border-neutral-200 dark:border-neutral-800 rounded-xl p-5 sm:p-6 shadow-sm flex flex-col gap-4">
-                
-                <!-- Status Line -->
                 <div id="statusLine" class="flex items-center gap-3">
                     <div id="statusIconBox" class="w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shrink-0"></div>
                     <span id="statusText" class="font-semibold text-sm"></span>
                 </div>
-
-                <!-- Plain Language Summary Sentence -->
                 <p id="summarySentence" class="text-sm leading-relaxed text-neutral-700 dark:text-neutral-300"></p>
 
-                <!-- Three Headline Numbers -->
                 <div class="grid grid-cols-3 gap-3 pt-3 border-t border-neutral-100 dark:border-neutral-800/60">
                     <div class="p-3 rounded-lg bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200/60 dark:border-neutral-800">
                         <span class="block text-[11px] font-medium text-neutral-500 dark:text-neutral-400 mb-1">Paid off in</span>
@@ -158,7 +147,6 @@
                         <h3 class="text-sm font-semibold tracking-tight">Loan Balance Over Time</h3>
                         <p class="text-xs text-neutral-500 dark:text-neutral-400">Comparing your payment plan against the standard 10-year repayment schedule.</p>
                     </div>
-                    <!-- Legend -->
                     <div class="flex items-center gap-4 text-xs">
                         <div class="flex items-center gap-1.5">
                             <span class="w-3 h-3 rounded-full inline-block bg-brandBlue dark:bg-brandBlueDark"></span>
@@ -171,10 +159,8 @@
                     </div>
                 </div>
 
-                <!-- Interactive SVG Line Chart Container -->
                 <div class="relative w-full h-64 sm:h-72 mt-2 select-none" id="chartContainer">
                     <svg id="balanceChart" class="w-full h-full overflow-visible"></svg>
-                    <!-- Tooltip Card -->
                     <div id="chartTooltip" class="absolute hidden pointer-events-none bg-neutral-900/90 text-white text-xs rounded-md px-3 py-2 shadow-lg backdrop-blur-sm z-20 transition-all duration-75">
                         <div id="tooltipMonth" class="font-semibold mb-1 text-neutral-300 border-b border-neutral-700 pb-0.5"></div>
                         <div id="tooltipMyPlan" class="text-brandBlue dark:text-brandBlueDark font-medium"></div>
@@ -183,15 +169,13 @@
                 </div>
             </div>
 
-            <!-- Horizontal Bar Comparison: Interest You Pay -->
+            <!-- Interest Comparison Bar -->
             <div class="bg-lightCard dark:bg-darkCard border border-neutral-200 dark:border-neutral-800 rounded-xl p-5 sm:p-6 shadow-sm flex flex-col gap-4">
                 <div>
                     <h3 class="text-sm font-semibold tracking-tight">Interest You Pay</h3>
                     <p class="text-xs text-neutral-500 dark:text-neutral-400">Total interest cost comparison between your strategy and standard repayment.</p>
                 </div>
-                
                 <div class="flex flex-col gap-3 py-2">
-                    <!-- My Plan Bar -->
                     <div>
                         <div class="flex justify-between text-xs font-medium mb-1">
                             <span class="text-neutral-600 dark:text-neutral-400">Your Plan (<span id="barMyPaymentLabel">$350/mo</span>)</span>
@@ -201,8 +185,6 @@
                             <div id="barMyInterestFill" class="bg-brandBlue dark:bg-brandBlueDark h-full rounded-full transition-all duration-300" style="width: 0%"></div>
                         </div>
                     </div>
-
-                    <!-- Standard 10-Year Plan Bar -->
                     <div>
                         <div class="flex justify-between text-xs font-medium mb-1">
                             <span class="text-neutral-600 dark:text-neutral-400">Standard 10-Year Plan (<span id="barStandardPaymentLabel">$284/mo</span>)</span>
@@ -215,7 +197,7 @@
                 </div>
             </div>
 
-            <!-- Table Section toggle -->
+            <!-- Table Section -->
             <div class="bg-lightCard dark:bg-darkCard border border-neutral-200 dark:border-neutral-800 rounded-xl p-5 sm:p-6 shadow-sm">
                 <div class="flex items-center justify-between">
                     <div>
@@ -226,8 +208,6 @@
                         Show as table
                     </button>
                 </div>
-
-                <!-- Table Wrapper (Hidden by default) -->
                 <div id="tableWrapper" class="hidden mt-4 overflow-x-auto max-h-96 border border-neutral-200 dark:border-neutral-800 rounded-lg">
                     <table class="w-full text-left text-xs">
                         <thead class="bg-neutral-50 dark:bg-neutral-900 sticky top-0 border-b border-neutral-200 dark:border-neutral-800">
@@ -239,24 +219,18 @@
                                 <th class="p-3 font-semibold text-brandOrange dark:text-brandOrangeDark">10-Yr Interest Paid</th>
                             </tr>
                         </thead>
-                        <tbody id="tableBody" class="divide-y divide-neutral-200 dark:divide-neutral-800">
-                            <!-- Injected via JavaScript -->
-                        </tbody>
+                        <tbody id="tableBody" class="divide-y divide-neutral-200 dark:divide-neutral-800"></tbody>
                     </table>
                 </div>
             </div>
-
         </div>
     </main>
 
-    <!-- Footer Note -->
     <footer class="w-full border-t border-neutral-200 dark:border-neutral-800 bg-lightCard dark:bg-darkCard py-4 px-6 text-center text-xs text-neutral-500 dark:text-neutral-400 mt-12">
         <p>This is an estimate for learning and educational purposes, not financial advice.</p>
     </footer>
 
-    <!-- Core Simulation & App Script -->
     <script>
-        // DOM Elements
         const amountInput = document.getElementById('amountInput');
         const amountVal = document.getElementById('amountVal');
         const rateInput = document.getElementById('rateInput');
@@ -298,11 +272,9 @@
         const themeToggle = document.getElementById('themeToggle');
         const themeIconText = document.getElementById('themeIconText');
 
-        // Cached simulation results (declared before functions that reference them)
         let cachedUserSim = null;
         let cachedStandardSim = null;
 
-        // Theme management
         function setTheme(isDark) {
             if (isDark) {
                 document.documentElement.classList.add('dark');
@@ -320,20 +292,14 @@
             setTheme(!document.documentElement.classList.contains('dark'));
         });
 
-        // Initialize Theme preference
         if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             setTheme(true);
         } else {
             setTheme(false);
         }
 
-        // Formatting Helpers
         function formatCurrency(val) {
             return '$' + Math.round(val).toLocaleString();
-        }
-
-        function formatCurrencyExact(val) {
-            return '$' + val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
         }
 
         function formatMonthsToYears(months) {
@@ -346,7 +312,6 @@
             return `${yrs} yr ${mos} mo`;
         }
 
-        // Core Loan Simulation Engine
         function runSimulation(principal, apr, monthlyPayment) {
             const monthlyRate = (apr / 100) / 12;
             let balance = principal;
@@ -356,7 +321,6 @@
             let balanceHistory = [principal];
             let interestHistory = [0];
 
-            // Check if payment is too low in month 1
             const firstMonthInterest = principal * monthlyRate;
             if (monthlyRate > 0 && monthlyPayment <= firstMonthInterest) {
                 return {
@@ -370,14 +334,12 @@
                 };
             }
 
-            // Month-by-month loop capped at 600 months (50 years)
             while (balance > 0.01 && months < 600) {
                 months++;
                 let interestForMonth = monthlyRate > 0 ? balance * monthlyRate : 0;
                 totalInterest += interestForMonth;
                 
                 let paymentThisMonth = monthlyPayment;
-                // Last partial payment adjustment if balance + interest is less than payment
                 if (balance + interestForMonth < paymentThisMonth) {
                     paymentThisMonth = balance + interestForMonth;
                 }
@@ -403,46 +365,36 @@
             };
         }
 
-        // Calculate Standard 10-Year Payment
         function calculateStandardPayment(principal, apr) {
             const r = (apr / 100) / 12;
             if (r === 0) return principal / 120;
             return (principal * r) / (1 - Math.pow(1 + r, -120));
         }
 
-        // Calculate required payment for a exact target month count (e.g., 36, 60, 84, 120)
         function calculatePaymentForMonths(principal, apr, targetMonths) {
             const r = (apr / 100) / 12;
             if (r === 0) return principal / targetMonths;
             return (principal * r * Math.pow(1 + r, targetMonths)) / (Math.pow(1 + r, targetMonths) - 1);
         }
 
-        // Main Update App Controller
         function updateAll() {
             const principal = parseFloat(amountInput.value);
             const apr = parseFloat(rateInput.value);
             const userPayment = parseFloat(paymentInput.value);
 
-            // Update slider text readouts
             amountVal.textContent = formatCurrency(principal);
             rateVal.textContent = apr.toFixed(2) + '%';
             paymentVal.textContent = formatCurrency(userPayment);
 
-            // Run Standard 10-Year Plan Simulation
             const standardPayment = calculateStandardPayment(principal, apr);
             const standardSim = runSimulation(principal, apr, standardPayment);
-
-            // Run User Plan Simulation
             const userSim = runSimulation(principal, apr, userPayment);
 
-            // Update Legend labels with monthly payments
             legendMyPlan.textContent = `Your plan (${formatCurrency(userPayment)}/mo)`;
             legendStandardPlan.textContent = `10-Year plan (${formatCurrency(standardPayment)}/mo)`;
 
-            // Render Status Line & Outputs
             renderStatusAndSummary(userSim, standardSim, userPayment, standardPayment, principal, apr);
             
-            // Render Headline Numbers
             if (userSim.status === 'too_low') {
                 headlinePayoffTime.textContent = '—';
                 headlineTotalInterest.textContent = '—';
@@ -457,32 +409,21 @@
                 headlineTotalPaid.textContent = formatCurrency(userSim.totalPaid);
             }
 
-            // Render Horizontal Bar Comparison
             renderBarComparison(userSim, standardSim, userPayment, standardPayment);
-
-            // Render "What it takes to finish in" Buttons
             renderTargetButtons(principal, apr, userPayment);
-
-            // Render Chart
             updateChart(userSim, standardSim);
 
-            // Render Table Data if open
             if (!tableWrapper.classList.contains('hidden')) {
                 renderTable(userSim, standardSim);
             }
         }
 
-        // Status & Summary Builder
         function renderStatusAndSummary(userSim, standardSim, userPayment, standardPayment, principal, apr) {
-            const isDark = document.documentElement.classList.contains('dark');
-            
             if (userSim.status === 'too_low') {
                 statusIconBox.className = 'w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shrink-0 bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-400';
                 statusIconBox.textContent = '✕';
                 statusText.textContent = 'Payment too low';
-                
-                const firstInt = userSim.firstMonthInterest;
-                summarySentence.textContent = `Your monthly payment of ${formatCurrency(userPayment)} is less than or equal to the first month's interest (${formatCurrency(firstInt)}). Your loan balance will grow indefinitely instead of shrinking. Raise your payment above ${formatCurrency(firstInt)} to start paying down the principal.`;
+                summarySentence.textContent = `Your monthly payment of ${formatCurrency(userPayment)} is less than or equal to the first month's interest (${formatCurrency(userSim.firstMonthInterest)}). Your loan balance will grow indefinitely instead of shrinking.`;
                 return;
             }
 
@@ -490,7 +431,7 @@
                 statusIconBox.className = 'w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shrink-0 bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-400';
                 statusIconBox.textContent = '✕';
                 statusText.textContent = 'Over 50 years to pay off';
-                summarySentence.textContent = `At ${formatCurrency(userPayment)} a month, this loan takes over 50 years to settle. Consider increasing your monthly payment to clear the debt faster.`;
+                summarySentence.textContent = `At ${formatCurrency(userPayment)} a month, this loan takes over 50 years to settle. Consider increasing your monthly payment.`;
                 return;
             }
 
@@ -501,25 +442,20 @@
                 statusIconBox.className = 'w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shrink-0 bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400';
                 statusIconBox.textContent = '✓';
                 statusText.textContent = 'On track within 10 years';
-                
-                const timeStr = formatMonthsToYears(Math.abs(diffMonths));
-                summarySentence.textContent = `You finish ${timeStr} sooner and pay ${formatCurrency(diffInterest)} less interest than the 10-year plan, which costs ${formatCurrency(standardPayment)} a month.`;
+                summarySentence.textContent = `You finish ${formatMonthsToYears(Math.abs(diffMonths))} sooner and pay ${formatCurrency(diffInterest)} less interest than the 10-year plan.`;
             } else if (userSim.status === 'on_track' && diffMonths === 0) {
                 statusIconBox.className = 'w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shrink-0 bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400';
                 statusIconBox.textContent = '✓';
                 statusText.textContent = 'On track within 10 years';
-                summarySentence.textContent = `Your plan matches the standard 10-year repayment schedule exactly, costing ${formatCurrency(standardPayment)} a month.`;
+                summarySentence.textContent = `Your plan matches the standard 10-year repayment schedule exactly.`;
             } else {
                 statusIconBox.className = 'w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shrink-0 bg-amber-100 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400';
                 statusIconBox.textContent = '!';
                 statusText.textContent = 'Slower than 10 years';
-                
-                const timeStr = formatMonthsToYears(Math.abs(diffMonths));
-                summarySentence.textContent = `You finish ${timeStr} later and pay ${formatCurrency(Math.abs(diffInterest))} more in interest than the standard 10-year plan, which costs ${formatCurrency(standardPayment)} a month.`;
+                summarySentence.textContent = `You finish ${formatMonthsToYears(Math.abs(diffMonths))} later and pay ${formatCurrency(Math.abs(diffInterest))} more in interest than the standard 10-year plan.`;
             }
         }
 
-        // Horizontal Bar Comparison Renderer
         function renderBarComparison(userSim, standardSim, userPayment, standardPayment) {
             barMyPaymentLabel.textContent = `${formatCurrency(userPayment)}/mo`;
             barStandardPaymentLabel.textContent = `${formatCurrency(standardPayment)}/mo`;
@@ -536,62 +472,47 @@
             barStandardInterestVal.textContent = formatCurrency(standardSim.totalInterest);
 
             const maxVal = Math.max(userSim.totalInterest, standardSim.totalInterest, 1);
-            const userPct = Math.max(4, Math.min(100, (userSim.totalInterest / maxVal) * 100));
-            const standardPct = Math.max(4, Math.min(100, (standardSim.totalInterest / maxVal) * 100));
-
-            barMyInterestFill.style.width = userPct + '%';
-            barStandardInterestFill.style.width = standardPct + '%';
+            barMyInterestFill.style.width = Math.max(4, Math.min(100, (userSim.totalInterest / maxVal) * 100)) + '%';
+            barStandardInterestFill.style.width = Math.max(4, Math.min(100, (standardSim.totalInterest / maxVal) * 100)) + '%';
         }
 
-        // Target Buttons Renderer (3, 5, 7, 10 Years)
         function renderTargetButtons(principal, apr, currentPayment) {
             const targets = [
-                { label: '3 years', years: 3, months: 36 },
-                { label: '5 years', years: 5, months: 60 },
-                { label: '7 years', years: 7, months: 84 },
-                { label: '10 years', years: 10, months: 120 }
+                { label: '3 years', months: 36 },
+                { label: '5 years', months: 60 },
+                { label: '7 years', months: 84 },
+                { label: '10 years', months: 120 }
             ];
 
             targetButtonsContainer.innerHTML = '';
-
             targets.forEach(t => {
-                const exactPay = calculatePaymentForMonths(principal, apr, t.months);
-                // Rounded up to next $10
-                const roundedPay = Math.ceil(exactPay / 10) * 10;
+                const roundedPay = Math.ceil(calculatePaymentForMonths(principal, apr, t.months) / 10) * 10;
                 const isTooHigh = roundedPay > 2500;
                 const isCurrent = Math.abs(currentPayment - roundedPay) < 10;
 
                 const btn = document.createElement('button');
                 btn.className = `flex flex-col items-center p-3 rounded-xl border text-left transition-all ${
-                    isCurrent 
-                        ? 'border-brandBlue bg-brandBlue/5 dark:bg-brandBlueDark/10 text-brandBlue dark:text-brandBlueDark ring-1 ring-brandBlue' 
-                        : 'border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 bg-white dark:bg-neutral-900'
+                    isCurrent ? 'border-brandBlue bg-brandBlue/5 dark:bg-brandBlueDark/10 text-brandBlue dark:text-brandBlueDark ring-1 ring-brandBlue' : 'border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 bg-white dark:bg-neutral-900'
                 } ${isTooHigh ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`;
-
                 btn.disabled = isTooHigh;
-
                 btn.innerHTML = `
                     <span class="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">${t.label}</span>
                     <span class="text-sm font-bold tracking-tight mt-1">${isTooHigh ? 'N/A' : formatCurrency(roundedPay)}</span>
                     <span class="text-[10px] text-neutral-400 mt-0.5">per month</span>
                 `;
-
                 if (!isTooHigh) {
                     btn.addEventListener('click', () => {
                         paymentInput.value = roundedPay;
                         updateAll();
                     });
                 }
-
                 targetButtonsContainer.appendChild(btn);
             });
         }
 
-        // SVG Line Chart Renderer
         function updateChart(userSim, standardSim) {
             if (userSim) cachedUserSim = userSim;
             if (standardSim) cachedStandardSim = standardSim;
-
             if (!cachedUserSim || !cachedStandardSim) return;
 
             const svg = balanceChart;
@@ -599,14 +520,11 @@
 
             const width = svg.clientWidth || 600;
             const height = svg.clientHeight || 280;
-            
             const padding = { top: 20, right: 30, bottom: 30, left: 55 };
             const plotWidth = width - padding.left - padding.right;
             const plotHeight = height - padding.top - padding.bottom;
-
             const principal = parseFloat(amountInput.value);
 
-            // Determine max months to plot (max between both plans, capped reasonably)
             const userMaxM = cachedUserSim.months === Infinity ? 600 : cachedUserSim.months;
             const stdMaxM = cachedStandardSim.months === Infinity ? 120 : cachedStandardSim.months;
             const maxMonths = Math.max(userMaxM, stdMaxM, 120);
@@ -621,23 +539,17 @@
             const blueColor = isDark ? '#3987e5' : '#2a78d6';
             const orangeColor = isDark ? '#d95926' : '#eb6834';
 
-            // Draw Y-Axis grid lines & labels
-            const yTicks = 4;
-            for (let i = 0; i <= yTicks; i++) {
-                const val = (principal / yTicks) * i;
+            for (let i = 0; i <= 4; i++) {
+                const val = (principal / 4) * i;
                 const y = yScale(val);
-
-                // Grid line
                 const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 line.setAttribute('x1', padding.left);
                 line.setAttribute('y1', y);
                 line.setAttribute('x2', width - padding.right);
                 line.setAttribute('y2', y);
                 line.setAttribute('stroke', gridColor);
-                line.setAttribute('stroke-width', '1');
                 svg.appendChild(line);
 
-                // Label
                 const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                 text.setAttribute('x', padding.left - 8);
                 text.setAttribute('y', y + 4);
@@ -648,12 +560,9 @@
                 svg.appendChild(text);
             }
 
-            // Draw X-Axis year labels
             const yearStep = maxYears > 15 ? 5 : (maxYears > 8 ? 2 : 1);
             for (let yr = 0; yr <= maxYears; yr += yearStep) {
-                const m = yr * 12;
-                const x = xScale(m);
-
+                const x = xScale(yr * 12);
                 const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                 text.setAttribute('x', x);
                 text.setAttribute('y', height - 8);
@@ -664,16 +573,10 @@
                 svg.appendChild(text);
             }
 
-            // Build Path Data Helper
             function createPathData(history) {
-                return history.map((bal, idx) => {
-                    const x = xScale(idx);
-                    const y = yScale(bal);
-                    return `${idx === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`;
-                }).join(' ');
+                return history.map((bal, idx) => `${idx === 0 ? 'M' : 'L'} ${xScale(idx).toFixed(1)} ${yScale(bal).toFixed(1)}`).join(' ');
             }
 
-            // Draw Standard Plan Path (Orange)
             if (cachedStandardSim.balanceHistory.length > 0) {
                 const stdPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                 stdPath.setAttribute('d', createPathData(cachedStandardSim.balanceHistory));
@@ -682,20 +585,8 @@
                 stdPath.setAttribute('stroke-width', '2');
                 stdPath.setAttribute('stroke-dasharray', '4 3');
                 svg.appendChild(stdPath);
-
-                // End dot for standard
-                const lastStdIdx = cachedStandardSim.balanceHistory.length - 1;
-                const stdEndX = xScale(lastStdIdx);
-                const stdEndY = yScale(cachedStandardSim.balanceHistory[lastStdIdx]);
-                const stdDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                stdDot.setAttribute('cx', stdEndX);
-                stdDot.setAttribute('cy', stdEndY);
-                stdDot.setAttribute('r', '3.5');
-                stdDot.setAttribute('fill', orangeColor);
-                svg.appendChild(stdDot);
             }
 
-            // Draw User Plan Path (Blue)
             if (cachedUserSim.status !== 'too_low' && cachedUserSim.balanceHistory.length > 0) {
                 const userPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                 userPath.setAttribute('d', createPathData(cachedUserSim.balanceHistory));
@@ -703,25 +594,12 @@
                 userPath.setAttribute('stroke', blueColor);
                 userPath.setAttribute('stroke-width', '2.5');
                 svg.appendChild(userPath);
-
-                // End dot for user
-                const lastUserIdx = cachedUserSim.balanceHistory.length - 1;
-                const userEndX = xScale(lastUserIdx);
-                const userEndY = yScale(cachedUserSim.balanceHistory[lastUserIdx]);
-                const userDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                userDot.setAttribute('cx', userEndX);
-                userDot.setAttribute('cy', userEndY);
-                userDot.setAttribute('r', '4');
-                userDot.setAttribute('fill', blueColor);
-                svg.appendChild(userDot);
             }
 
-            // Interactive Hover Line & Overlay
             const hoverLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
             hoverLine.setAttribute('y1', padding.top);
             hoverLine.setAttribute('y2', height - padding.bottom);
             hoverLine.setAttribute('stroke', textColor);
-            hoverLine.setAttribute('stroke-width', '1');
             hoverLine.setAttribute('stroke-dasharray', '2 2');
             hoverLine.style.display = 'none';
             svg.appendChild(hoverLine);
@@ -736,58 +614,34 @@
 
             const handlePointerMove = (clientX) => {
                 const rect = svg.getBoundingClientRect();
-                const clickX = clientX - rect.left;
-                const relX = Math.max(padding.left, Math.min(width - padding.right, clickX));
-                
-                const ratio = (relX - padding.left) / plotWidth;
-                const targetMonth = Math.round(ratio * maxMonths);
-                const clampedMonth = Math.max(0, Math.min(maxMonths, targetMonth));
+                const relX = Math.max(padding.left, Math.min(width - padding.right, clientX - rect.left));
+                const clampedMonth = Math.max(0, Math.min(maxMonths, Math.round(((relX - padding.left) / plotWidth) * maxMonths)));
 
-                const snapX = xScale(clampedMonth);
-                hoverLine.setAttribute('x1', snapX);
-                hoverLine.setAttribute('x2', snapX);
+                hoverLine.setAttribute('x1', xScale(clampedMonth));
+                hoverLine.setAttribute('x2', xScale(clampedMonth));
                 hoverLine.style.display = 'block';
 
-                // Get balances
-                const userBal = cachedUserSim.balanceHistory[clampedMonth] !== undefined 
-                    ? cachedUserSim.balanceHistory[clampedMonth] 
-                    : cachedUserSim.balanceHistory[cachedUserSim.balanceHistory.length - 1];
-                
-                const stdBal = cachedStandardSim.balanceHistory[clampedMonth] !== undefined 
-                    ? cachedStandardSim.balanceHistory[clampedMonth] 
-                    : cachedStandardSim.balanceHistory[cachedStandardSim.balanceHistory.length - 1];
+                const userBal = cachedUserSim.balanceHistory[clampedMonth] ?? cachedUserSim.balanceHistory[cachedUserSim.balanceHistory.length - 1];
+                const stdBal = cachedStandardSim.balanceHistory[clampedMonth] ?? cachedStandardSim.balanceHistory[cachedStandardSim.balanceHistory.length - 1];
 
-                const yrCount = (clampedMonth / 12).toFixed(1);
-                tooltipMonth.textContent = `Month ${clampedMonth} (${yrCount} yr)`;
+                tooltipMonth.textContent = `Month ${clampedMonth} (${(clampedMonth / 12).toFixed(1)} yr)`;
                 tooltipMyPlan.textContent = `Your plan: ${formatCurrency(userBal)}`;
                 tooltipStandard.textContent = `10-Year plan: ${formatCurrency(stdBal)}`;
-
                 chartTooltip.style.display = 'block';
                 
-                // Position tooltip nicely
-                let tipX = snapX + 15;
-                if (tipX + 140 > width) tipX = snapX - 150;
+                let tipX = xScale(clampedMonth) + 15;
+                if (tipX + 140 > width) tipX = xScale(clampedMonth) - 150;
                 chartTooltip.style.left = tipX + 'px';
                 chartTooltip.style.top = '40px';
             };
 
             hitArea.addEventListener('mousemove', (e) => handlePointerMove(e.clientX));
-            hitArea.addEventListener('touchmove', (e) => {
-                if (e.touches && e.touches[0]) {
-                    handlePointerMove(e.touches[0].clientX);
-                }
-            });
-
-            const handlePointerLeave = () => {
+            hitArea.addEventListener('mouseleave', () => {
                 hoverLine.style.display = 'none';
                 chartTooltip.style.display = 'none';
-            };
-
-            hitArea.addEventListener('mouseleave', handlePointerLeave);
-            hitArea.addEventListener('touchend', handlePointerLeave);
+            });
         }
 
-        // Table Toggle & Render
         toggleTableBtn.addEventListener('click', () => {
             if (tableWrapper.classList.contains('hidden')) {
                 tableWrapper.classList.remove('hidden');
@@ -806,34 +660,21 @@
 
             tableBody.innerHTML = '';
             const maxLen = Math.max(cachedUserSim.balanceHistory.length, cachedStandardSim.balanceHistory.length);
-            const maxYears = Math.ceil(maxLen / 12);
-
-            for (let yr = 0; yr <= maxYears; yr++) {
+            for (let yr = 0; yr <= Math.ceil(maxLen / 12); yr++) {
                 const monthIdx = yr * 12;
                 if (monthIdx >= maxLen && yr > 0) break;
 
-                const userBal = cachedUserSim.balanceHistory[monthIdx] !== undefined 
-                    ? cachedUserSim.balanceHistory[monthIdx] 
-                    : cachedUserSim.balanceHistory[cachedUserSim.balanceHistory.length - 1];
-                
-                const userInt = cachedUserSim.interestHistory[monthIdx] !== undefined 
-                    ? cachedUserSim.interestHistory[monthIdx] 
-                    : cachedUserSim.interestHistory[cachedUserSim.interestHistory.length - 1];
-
-                const stdBal = cachedStandardSim.balanceHistory[monthIdx] !== undefined 
-                    ? cachedStandardSim.balanceHistory[monthIdx] 
-                    : cachedStandardSim.balanceHistory[cachedStandardSim.balanceHistory.length - 1];
-                
-                const stdInt = cachedStandardSim.interestHistory[monthIdx] !== undefined 
-                    ? cachedStandardSim.interestHistory[monthIdx] 
-                    : cachedStandardSim.interestHistory[cachedStandardSim.interestHistory.length - 1];
+                const userBal = cachedUserSim.balanceHistory[monthIdx] ?? cachedUserSim.balanceHistory[cachedUserSim.balanceHistory.length - 1];
+                const userInt = cachedUserSim.interestHistory[monthIdx] ?? cachedUserSim.interestHistory[cachedUserSim.interestHistory.length - 1];
+                const stdBal = cachedStandardSim.balanceHistory[monthIdx] ?? cachedStandardSim.balanceHistory[monthIdx] ?? cachedStandardSim.balanceHistory[cachedStandardSim.balanceHistory.length - 1];
+                const stdInt = cachedStandardSim.interestHistory[monthIdx] ?? cachedStandardSim.interestHistory[cachedStandardSim.interestHistory.length - 1];
 
                 const row = document.createElement('tr');
                 row.className = 'hover:bg-neutral-50 dark:hover:bg-neutral-900/40 transition-colors';
                 row.innerHTML = `
                     <td class="p-3 font-medium">Year ${yr}</td>
                     <td class="p-3 text-brandBlue dark:text-brandBlueDark font-medium">${formatCurrency(userBal)}</td>
-                    <td class="p-3 text-neutral-600 dark:text-neutral-400">${userSim.status === 'too_low' ? '—' : formatCurrency(userInt)}</td>
+                    <td class="p-3 text-neutral-600 dark:text-neutral-400">${cachedUserSim.status === 'too_low' ? '—' : formatCurrency(userInt)}</td>
                     <td class="p-3 text-brandOrange dark:text-brandOrangeDark font-medium">${formatCurrency(stdBal)}</td>
                     <td class="p-3 text-neutral-600 dark:text-neutral-400">${formatCurrency(stdInt)}</td>
                 `;
@@ -841,20 +682,11 @@
             }
         }
 
-        // Event Listeners for Sliders
         amountInput.addEventListener('input', updateAll);
         rateInput.addEventListener('input', updateAll);
         paymentInput.addEventListener('input', updateAll);
-
-        // Window resize listener to redraw responsive SVG chart
-        window.addEventListener('resize', () => {
-            updateChart();
-        });
-
-        // Initial Run on Load
-        window.onload = function() {
-            updateAll();
-        };
+        window.addEventListener('resize', () => updateChart());
+        window.onload = () => updateAll();
     </script>
 </body>
 </html>
