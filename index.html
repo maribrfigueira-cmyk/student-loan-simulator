@@ -44,6 +44,10 @@
                 <p class="text-xs text-neutral-500 dark:text-neutral-400">Model how your repayment strategy changes your timeline and total interest cost.</p>
             </div>
             <div class="flex items-center gap-3">
+                <button id="shareBtn" class="p-2 rounded-md border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-sm font-medium flex items-center gap-1.5" aria-label="Share link" title="Copy shareable link">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3.316 3.316 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3.316 3.316 0 00-5.368-2.684z"></path></svg>
+                    <span id="shareText">Share</span>
+                </button>
                 <button id="themeToggle" class="p-2 rounded-md border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-sm font-medium flex items-center gap-2" aria-label="Toggle theme">
                     <span id="themeIconText">Theme</span>
                 </button>
@@ -271,9 +275,66 @@
         
         const themeToggle = document.getElementById('themeToggle');
         const themeIconText = document.getElementById('themeIconText');
+        const shareBtn = document.getElementById('shareBtn');
+        const shareText = document.getElementById('shareText');
 
         let cachedUserSim = null;
         let cachedStandardSim = null;
+
+        // Load parameters from URL query string if present
+        function loadParamsFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('amount')) {
+                const amt = parseFloat(params.get('amount'));
+                if (!isNaN(amt)) amountInput.value = Math.max(1000, Math.min(80000, amt));
+            }
+            if (params.has('rate')) {
+                const rt = parseFloat(params.get('rate'));
+                if (!isNaN(rt)) rateInput.value = Math.max(0.5, Math.min(12, rt));
+            }
+            if (params.has('payment')) {
+                const pay = parseFloat(params.get('payment'));
+                if (!isNaN(pay)) paymentInput.value = Math.max(50, Math.min(2500, pay));
+            }
+        }
+
+        // Share button handler
+        shareBtn.addEventListener('click', () => {
+            const url = new URL(window.location.href);
+            url.searchParams.set('amount', amountInput.value);
+            url.searchParams.set('rate', rateInput.value);
+            url.searchParams.set('payment', paymentInput.value);
+
+            const shareString = url.toString();
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(shareString).then(() => {
+                    shareText.textContent = 'Copied!';
+                    setTimeout(() => { shareText.textContent = 'Share'; }, 2000);
+                }).catch(() => {
+                    fallbackCopy(shareString);
+                });
+            } else {
+                fallbackCopy(shareString);
+            }
+        });
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                shareText.textContent = 'Copied!';
+                setTimeout(() => { shareText.textContent = 'Share'; }, 2000);
+            } catch (err) {
+                shareText.textContent = 'Error';
+            }
+            document.body.removeChild(textArea);
+        }
 
         function setTheme(isDark) {
             if (isDark) {
@@ -686,7 +747,11 @@
         rateInput.addEventListener('input', updateAll);
         paymentInput.addEventListener('input', updateAll);
         window.addEventListener('resize', () => updateChart());
-        window.onload = () => updateAll();
+        
+        window.onload = () => {
+            loadParamsFromURL();
+            updateAll();
+        };
     </script>
 </body>
 </html>
